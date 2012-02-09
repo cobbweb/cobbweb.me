@@ -1,6 +1,12 @@
 @import "reset";
 @import "mixins";
 
+@column-width: 240px;
+
+.unselectable {
+    .user-select(none);
+}
+
 html, body {
     background: url(../img/bgpattern.png) repeat;
     font-family: "Helvetica Neue", Helvetica, sans-serif;
@@ -63,17 +69,40 @@ a {
     }
 }
 
-#main {
+#scroll-wrapper {
+    position: absolute;
+    left: 0;
+    top: 60px;
+    overflow: scroll;
     width: 100%;
+}
+
+.scrollbar {
+    height: 8px;
+    background-color: #000;
+    .opacity(0.7);
+    border: 1px solid #444;
+    .rounded(4px);
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    min-width: 2%;
+    z-index: 100;
+    cursor: default;
+}
+
+#main {
+    width: 10000px;
     padding: 0;
     left: 0;
-    top: 70px;
+    top: 0;
     position: absolute;
-    overflow: hidden;
+    overflow: visible;
 
     .column {
-        width: 240px;
+        width: @column-width;
         margin-left: 20px;
+        margin-top: 20px;
         float: left;
     }
 
@@ -88,12 +117,20 @@ a {
 
 .post {
     padding: 10px;
-    background: #fafafa;
+    background: #e5e5e5;
     .rounded(6px);
-    .box-shadow(0, 0, 15px, #000);
+    .box-shadow(0, 0, 10px, #111);
     margin-bottom: 20px;
     line-height: 120%;
     cursor: pointer;
+
+    &.hover {
+        .box-shadow(0, 0, 20px, #000);
+        position: relative;
+        top: -2px;
+        left: -2px;
+        background: #fff;
+    }
 
     header {
         margin-bottom: 12px;
@@ -161,6 +198,12 @@ a {
     width: 520px;
     margin: 0 auto;
     position: relative;
+    background: #fff;
+    line-height: 130%;
+    
+    .content p {
+        margin-bottom: 12px;
+    }
 
     .close {
         position: absolute;

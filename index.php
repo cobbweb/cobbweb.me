@@ -1,4 +1,7 @@
 <?php
+$host   = $_SERVER['HTTP_HOST'];
+$isProd = isset($_ENV['PRODUCTION']) && $_ENV['PRODUCTION'] == true;
+
 require_once "lib/markdown.php";
 require_once "lib/Cobbweb/Posts.php";
 
@@ -10,11 +13,24 @@ $scripts = array(
         'assets/js/libs/jquery',
         'assets/js/libs/underscore',
         'assets/js/libs/backbone',
+        'assets/js/libs/jquery.disableselection',
+        'assets/js/libs/jquery.scrollbar',
         'app/namespace',
         'app/modules/cobbweb',
         'app/index'
+    ),
+    'production' => array(
+        'dist/release/js/libs',
+        'dist/release/js/templates',
+        'dist/release/js/app'
     )
-)
+);
+
+if ($isProd && false) {
+    $scripts = $scripts['production'];
+} else {
+    $scripts = $scripts['dev'];
+}
 
 ?>
 <!doctype html>
@@ -30,6 +46,9 @@ $scripts = array(
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <link rel="stylesheet/less" type="text/css" href="/assets/css/cobbweb.less">
+    <script type="text/javascript">
+        var less = { env: "development" };
+    </script>
     <script src="/assets/js/libs/less.js"></script>
 </head>
 <body>
@@ -49,7 +68,9 @@ $scripts = array(
             </nav>
         </header>
 
-        <div id="main"></div>
+        <div id="scroll-wrapper">
+            <div id="main" class="scroll-this-shiz"></div>
+        </div>
 
         <footer id="site-footer">
             <p>&copy; Andrew Cobby 2012</p>
@@ -64,12 +85,12 @@ $scripts = array(
     var _post_data = <?php echo $json; ?>;
 </script>
 
-<?php foreach($scripts['dev'] as $script): ?>
+<?php foreach($scripts as $script): ?>
     <script src="/<?php echo $script . '.js'; ?>"></script>
 <?php endforeach; ?>
 
 <script type="text/template" id="template-post">
-    <header><%= title %></header>
+    <header><h1><%= title %></h1></header>
 
     <div class="content">
         <%= summary %>
@@ -97,7 +118,7 @@ $scripts = array(
 </script>
 
 <script id="template-full-post" type="text/template">
-    <header><%= title %></header>
+    <header><h1><%= title %></h1></header>
 
     <div class="content">
         <%= summary %>
