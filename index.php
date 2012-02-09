@@ -21,7 +21,6 @@ $scripts = array(
     ),
     'production' => array(
         'dist/release/js/libs',
-        'dist/release/js/templates',
         'dist/release/js/app'
     )
 );
