@@ -1,0 +1,331 @@
+/* Reset.less
+ * Props to Eric Meyer (meyerweb.com) for his CSS reset file. We're using an adapted version here	that cuts out some of the reset HTML elements we will never need here (i.e., dfn, samp, etc).
+ * ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+dd,
+dl,
+dt,
+li,
+ol,
+ul,
+fieldset,
+form,
+label,
+legend,
+button,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 100%;
+  line-height: 1;
+  font-family: inherit;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+ol, ul {
+  list-style: none;
+}
+q:before,
+q:after,
+blockquote:before,
+blockquote:after {
+  content: "";
+}
+html {
+  overflow-y: scroll;
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+a:focus {
+  outline: thin dotted;
+}
+a:hover, a:active {
+  outline: 0;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section {
+  display: block;
+}
+audio, canvas, video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+audio:not([controls]) {
+  display: none;
+}
+sub, sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+img {
+  border: 0;
+  -ms-interpolation-mode: bicubic;
+}
+button,
+input,
+select,
+textarea {
+  font-size: 100%;
+  margin: 0;
+  vertical-align: baseline;
+  *vertical-align: middle;
+}
+button, input {
+  line-height: normal;
+  *overflow: visible;
+}
+button::-moz-focus-inner, input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  cursor: pointer;
+  -webkit-appearance: button;
+}
+input[type="search"] {
+  -webkit-appearance: textfield;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+textarea {
+  overflow: auto;
+  vertical-align: top;
+}
+/*---------------------------------------------------
+    LESS Elements 0.6
+  ---------------------------------------------------
+    A set of useful LESS mixins by Dmitry Fadeyev
+    Special thanks for mixin suggestions to:
+      Kris Van Herzeele,
+      Benoit Adam,
+      Portenart Emile-Victor,
+      Ryan Faerman
+
+    More info at: http://lesselements.com
+-----------------------------------------------------*/
+.clearfix {
+  zoom: 1;
+}
+.clearfix:after {
+  display: block;
+  visibility: hidden;
+  height: 0;
+  clear: both;
+  content: ".";
+}
+html, body {
+  background: url(../img/bgpattern.png) repeat;
+  font-family: Helvetica, sans-serif;
+}
+a {
+  text-decoration: none;
+  color: #0066FF;
+}
+a:hover {
+  text-decoration: underline;
+}
+a:active {
+  position: relative;
+  top: 1px;
+}
+#site-header {
+  width: 100%;
+  height: 50px;
+  -webkit-box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.6);
+  background: #3f3f3f;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #252525), color-stop(1, #404040));
+  background: -ms-linear-gradient(bottom, #252525, #404040);
+  background: -moz-linear-gradient(center bottom, #252525 0%, #404040 100%);
+  position: relative;
+}
+#site-header #title {
+  color: #CEF759;
+  position: absolute;
+  bottom: 10px;
+  left: 20px;
+  font-size: 24px;
+}
+#site-header #humour {
+  color: #ccc;
+  font-size: 12px;
+  position: absolute;
+  bottom: 14px;
+  left: 127px;
+}
+#site-header nav {
+  position: absolute;
+  right: 20px;
+  bottom: 12px;
+}
+#site-header nav a {
+  display: inline-block;
+  margin-left: 10px;
+  color: #09f;
+}
+#site-header nav .img-link {
+  position: relative;
+  top: 4px;
+}
+#main {
+  width: 100%;
+  padding: 0;
+  left: 0;
+  top: 70px;
+  position: absolute;
+  overflow: hidden;
+}
+#main .column {
+  width: 240px;
+  margin-left: 20px;
+  float: left;
+}
+#main .column:last-child {
+  margin-right: 20px;
+}
+#main .post:last-child {
+  margin-bottom: 0;
+}
+.post {
+  padding: 10px;
+  background: #fafafa;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0 0 3px #000000;
+  -moz-box-shadow: 0 0 3px #000000;
+  box-shadow: 0 0 3px #000000;
+  margin-bottom: 20px;
+}
+.post header {
+  margin-bottom: 12px;
+  color: #000;
+  font-size: 18px;
+}
+.post .content {
+  color: #323232;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+.post .content p {
+  margin-bottom: 6px;
+}
+.post .content img {
+  border: 1px solid #999;
+}
+.post footer {
+  font-size: 12px;
+}
+.post footer .post-link {
+  color: #03c;
+  display: block;
+  margin-bottom: 12px;
+}
+.post footer .info {
+  margin-bottom: 8px;
+  zoom: 1;
+}
+.post footer .info:after {
+  display: block;
+  visibility: hidden;
+  height: 0;
+  clear: both;
+  content: ".";
+}
+.post footer .info time {
+  float: right;
+  color: #666;
+  position: relative;
+  top: 3px;
+}
+.post footer .tags a {
+  color: #666;
+  display: inline-block;
+  margin-right: 3px;
+}
+#site-footer {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  color: #666;
+  font-size: 10px;
+}
+#stage {
+  position: absolute;
+  width: 240px;
+  top: -10000px;
+  left: -10000px;
+}

@@ -1,0 +1,26 @@
+<header><%= title %></header>
+
+<div class="content">
+    <%= content %>
+</div>
+
+<footer>
+    <% if (link) { %>
+    <a href="<%= link %>" class="post-link"><%= displayLink %></a>
+    <% } %>
+
+    <div class="info">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-count="none"
+           data-via="andrewcobby">Tweet</a>
+
+        <time datetime="<%= date.toISOString() %>">
+            <%= dateString %>
+        </time>
+    </div>
+
+    <nav class="tags">
+        <% _.each(tags, function(tag) { %>
+        <a href="/tag/<%= tag %>">#<%= tag %></a>
+        <% }); %>
+    </nav>
+</footer>
