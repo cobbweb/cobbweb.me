@@ -39,7 +39,9 @@
         $stage: $("#stage"),
 
         events: {
-            "click": "showFullPost"
+            "click"     : "showFullPost",
+            "mouseenter": "onMouseOver",
+            "mouseleave": "onMouseOut"
         },
 
         initialize: function()
@@ -64,6 +66,16 @@
         showFullPost: function()
         {
             Cobbweb.navigate("post/" + this.model.id);
+        },
+
+        onMouseOver: function()
+        {
+            this.$el.addClass("hover");
+        },
+
+        onMouseOut: function()
+        {
+            this.$el.removeClass("hover");
         }
 
     });
@@ -131,6 +143,7 @@
         {
             this.posts.push(post);
             this.$el.append(post.$el);
+            post.delegateEvents();
         },
 
         popPost: function()
@@ -144,6 +157,7 @@
         {
             this.posts.unshift(post);
             this.$el.prepend(post.$el);
+            post.delegateEvents();
         },
 
         shiftPost: function()
@@ -155,12 +169,12 @@
 
         canFitPost: function(post)
         {
-            return (post.getHeight() + this.getHeight() + 20) < this.getMaxHeight();
+            return (post.getHeight() + this.getHeight()) < this.getMaxHeight();
         },
 
         getHeight: function()
         {
-            return this.$el.height();
+            return this.$el.outerHeight(true);
         },
 
         isBursting: function()
@@ -187,9 +201,10 @@
 
     Cobbweb.Views.AppView = Backbone.View.extend({
 
-        el:      $("#main"),
-        $header: $("#site-header"),
-        $footer: $("#site-footer"),
+        el:       $("#main"),
+        $header:  $("#site-header"),
+        $footer:  $("#site-footer"),
+        $wrapper: $("#scroll-wrapper"),
 
         posts: [],
         columns: [],
@@ -200,6 +215,7 @@
             $(window).on("resize", this.onResize);
             this.collection.each(this.createPost);
             this.onResize();
+            this.scroller = this.$wrapper.scrollable();
         },
 
         render: function()
@@ -218,22 +234,31 @@
                 this.initialized = true;
             }
 
+
             Cobbweb.trigger("resetState");
         },
 
         onResize: function()
         {
-            this.$el.height(this._calculateHeight());
+            var height = this._calculateHeight();
+            this.$el.height(height);
+            this.$wrapper.height(height);
 
             _.debounce(this._arrangeColumns, 100)();
         },
 
         _arrangeColumns: function()
         {
+            var width = 20;
             _.each(this.columns, function(column, i) {
                 if (column.isBursting()) {
                     var post = column.popPost();
                     var nextColumn = this._getNextColumn(column, true);
+
+                    if (nextColumn.posts.length == 0) {
+                        width += column.$el.outerWidth(true);
+                    }
+
                     nextColumn.unshiftPost(post);
                 } else {
                     var nextColumn = this._getNextColumn(column);
@@ -248,12 +273,16 @@
 
                             if (nextColumn.isEmpty()) {
                                 this.removeColumn(nextColumn);
+                                return false;
                             }
                         }
                     }
                 }
-
+                width += column.$el.outerWidth(true);
             }, this);
+
+            this.$el.width(width);
+            this.scroller.render();
         },
 
         _getNextColumn: function(column, force)
