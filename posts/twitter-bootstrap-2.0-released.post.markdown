@@ -4,7 +4,7 @@ timestamp: 1327547127593
 tags: twitter,bootstrap,frameworks,LESS
 #---#
 Bootstrap v2 has been released by Twitter and god it is sexy. I wasn't expecting a major release soo soon but it happen.
-Version 2 builds of the same principals as version, including my personal favourite [LESS CSS](ttp://lesscss.com/) -
+Version 2 builds off the same principles as version, including my personal favourite [LESS CSS](http://lesscss.org/) -
 which I use on this site and many of my project.
 #---more---#
 I will admit, that despite sexy aesthetics and features so good I had thought of them, it doesn't seem to promote
