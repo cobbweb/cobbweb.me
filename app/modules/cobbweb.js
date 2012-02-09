@@ -13,7 +13,7 @@
 
         navigate: function(route, replace)
         {
-            $$.router.navigate(route, { trigger: true, replace: replace })
+            $$.router.navigate(route, { trigger: true, replace: replace });
         }
 
     });
@@ -115,7 +115,7 @@
         _close: function()
         {
             this.$main.hide().html('');
-            this.$overlay.hide()
+            this.$overlay.hide();
         },
 
         onKey: function(event)
@@ -184,7 +184,7 @@
 
         isEmpty: function()
         {
-            return this.posts.length == 0;
+            return this.posts.length === 0;
         },
 
         remove: function()
@@ -249,22 +249,22 @@
 
         _arrangeColumns: function()
         {
-            var width = 20;
+            var width = 20, nextColumn, post;
             _.each(this.columns, function(column, i) {
                 if (column.isBursting()) {
-                    var post = column.popPost();
-                    var nextColumn = this._getNextColumn(column, true);
+                    post = column.popPost();
+                    nextColumn = this._getNextColumn(column, true);
 
-                    if (nextColumn.posts.length == 0) {
+                    if (nextColumn.isEmpty()) {
                         width += column.$el.outerWidth(true);
                     }
 
                     nextColumn.unshiftPost(post);
                 } else {
-                    var nextColumn = this._getNextColumn(column);
+                    nextColumn = this._getNextColumn(column);
 
                     if (nextColumn) {
-                        var post = nextColumn.posts[0];
+                        post = nextColumn.posts[0];
 
 
                         if (column.canFitPost(post)) {
@@ -290,7 +290,7 @@
             var i = _(this.columns).indexOf(column);
             var nextColumn = this.columns[i + 1];
 
-            if (!nextColumn && force == true) {
+            if (!nextColumn && force) {
                 nextColumn = this.createColumn();
             }
 
@@ -333,7 +333,7 @@
 
         showFullPost: function(id)
         {
-            var post = this.collection.find(function(p) { return p.get('id') == id });
+            var post = this.collection.find(function(p) { return p.get('id') == id; });
 
             if (!post) {
                 Cobbweb.Util.navigate("/");
