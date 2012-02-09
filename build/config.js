@@ -14,7 +14,9 @@ config.init({
     "dist/debug/js/libs.js": [
       "assets/js/libs/jquery.js",
       "assets/js/libs/underscore.js",
-      "assets/js/libs/backbone.js"
+      "assets/js/libs/backbone.js",
+      "assets/js/libs/jquery.disableselection.js",
+      "assets/js/libs/jquery.scrollbar.js"
     ],
 
     // Application files
@@ -25,7 +27,7 @@ config.init({
   },
 
   jst: {
-    "dist/debug/js/templates.js": ["app/templates/**/*.html"]
+    "dist/debug/js/templates.js": []
   },
 
   min: {
