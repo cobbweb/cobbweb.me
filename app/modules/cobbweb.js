@@ -105,6 +105,7 @@
             this.$el.html(renderedHtml);
             this.$main.append(this.$el).show();
             this.$overlay.show();
+            this.delegateEvents();
         },
 
         close: function()

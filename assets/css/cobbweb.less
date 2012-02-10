@@ -84,7 +84,7 @@ a {
     border: 1px solid #444;
     .rounded(4px);
     position: absolute;
-    bottom: 10px;
+    bottom: 11px;
     left: 10px;
     min-width: 2%;
     z-index: 100;
@@ -200,6 +200,7 @@ a {
     position: relative;
     background: #fff;
     line-height: 130%;
+    cursor: default;
     
     .content p {
         margin-bottom: 12px;
@@ -210,6 +211,10 @@ a {
         top: 8px;
         right: 8px;
         cursor: pointer;
+
+        & > * {
+            cursor: pointer;
+        }
     }
 }
 

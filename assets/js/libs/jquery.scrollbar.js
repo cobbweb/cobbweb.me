@@ -7,7 +7,7 @@
             _.bindAll(this);
             this.$el.css('overflow', 'hidden');
             this.$scrollingArea = this.$('.scroll-this-shiz');
-            this.createScrollBar();
+            this.$el.on("mousewheel", this.onMouseWheel);
             this.render();
         },
 
@@ -21,6 +21,10 @@
 
         render: function()
         {
+            if (!this.$scrollbar) {
+                this.createScrollBar();
+            }
+
             this.doScrollBarWidth();
         },
 
@@ -40,11 +44,12 @@
 
         getTrackWidth: function()
         {
-            return this.$el.width() - this.initialScrollbarOffset - 140;
+            return this.$el.width() - this.initialScrollbarOffset - 125;
         },
 
         startScroll: function(event)
         {
+            event.preventDefault();
             this.disableTextSelection();
             this.startPosition = {
                 cursor: event.pageX,
@@ -59,23 +64,42 @@
         {
             $(window).off("mousemove.scrollbar");
             this.enableTextSelection();
+            this.startPosition = false;
         },
 
         drag: function(event)
         {
             var distanceMoved   = (event.pageX - this.startPosition.cursor);
-            var moveScrollbarTo = this.startPosition.scrollbar + distanceMoved;
+            var newOffset = this.startPosition.scrollbar + distanceMoved;
+            this.moveScrollBarTo(newOffset);
+        },
 
-            // shouldn't be less than zero
-            moveScrollbarTo = Math.max(moveScrollbarTo, this.initialScrollbarOffset);
+        moveScrollBarTo: function(newOffset)
+        {
+            // shouldn't be less than minimum
+            newOffset = Math.max(newOffset, this.initialScrollbarOffset);
             // shouldn't be past boundary
-            moveScrollbarTo = Math.min(moveScrollbarTo, this.getMaxScrollbarOffset());
+            newOffset = Math.min(newOffset, this.getMaxScrollbarOffset());
 
-            this.$scrollbar.css('left', moveScrollbarTo);
+            this.$scrollbar.css('left', newOffset);
 
             // how far as % is the scroll bar?
-            var percentScrolled = (moveScrollbarTo / this.getMaxScrollbarOffset());
-            var newScrollOffset = this.getMaxContentOffset() * percentScrolled;
+            var percentScrolled = (newOffset / this.getMaxScrollbarOffset());
+            this.moveToPercent(percentScrolled);
+        },
+
+        onMouseWheel: function(event, delta, deltaX)
+        {
+            var velocity  = Math.abs(deltaX * 10);
+            var newOffset = this.$scrollbar.position().left - (delta);
+
+            this.moveScrollBarTo(newOffset);
+        },
+
+        // scroll the content to a given percentage
+        moveToPercent: function(percent)
+        {
+            var newScrollOffset = this.getMaxContentOffset() * percent;
             this.$el.scrollLeft(newScrollOffset);
         },
 
@@ -91,13 +115,28 @@
 
         disableTextSelection: function()
         {
-            console.log($("#container"));
-            $("#container").disableTextSelect();
+            $('body').css({
+                "-moz-user-select": "none",
+                "-webkit-user-select": "none",
+                "-ms-user-select": "none"
+            });
+
+            if ($.browser.msie || $.browser.opera) {
+                return $('*').attr("unselectable", "on");
+            }
         },
 
         enableTextSelection: function()
         {
-            $("#container").enableTextSelect();
+            $('body').css({
+                "-moz-user-select": "auto",
+                "-webkit-user-select": "auto",
+                "-ms-user-select": "auto"
+            });
+
+            if ($.browser.msie || $.browser.opera) {
+                return $('*').attr("unselectable", "off");
+            }
         }
 
     });
@@ -107,3 +146,16 @@
     };
 
 })(jQuery);
+
+
+
+
+
+
+
+
+
+
+
+
+

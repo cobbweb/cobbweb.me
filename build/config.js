@@ -15,7 +15,6 @@ config.init({
       "assets/js/libs/jquery.js",
       "assets/js/libs/underscore.js",
       "assets/js/libs/backbone.js",
-      "assets/js/libs/jquery.disableselection.js",
       "assets/js/libs/jquery.scrollbar.js"
     ],
 
@@ -23,7 +22,7 @@ config.init({
     "dist/debug/js/app.js": ["app/namespace.js", "app/modules/**/*.js", "app/index.js"]
 
     // Your CSS
-   //  "dist/debug/css/style.css": ["assets/css/**/*.css"]
+    "dist/debug/css/style.css": ["assets/css/**/*.css"]
   },
 
   jst: {
@@ -37,7 +36,7 @@ config.init({
   },
 
   mincss: {
-    // "dist/release/css/style.css": ["dist/debug/css/style.css"]
+    "dist/release/css/style.css": ["dist/debug/css/style.css"]
   },
 
   watch: {

@@ -13,7 +13,7 @@ $scripts = array(
         'assets/js/libs/jquery',
         'assets/js/libs/underscore',
         'assets/js/libs/backbone',
-        'assets/js/libs/jquery.disableselection',
+        'assets/js/libs/jquery.mousewheel',
         'assets/js/libs/jquery.scrollbar',
         'app/namespace',
         'app/modules/cobbweb',
@@ -25,7 +25,7 @@ $scripts = array(
     )
 );
 
-if ($isProd && false) {
+if ($isProd) {
     $scripts = $scripts['production'];
 } else {
     $scripts = $scripts['dev'];
