@@ -7,8 +7,8 @@
             _.bindAll(this);
             this.$el.css('overflow', 'hidden');
             this.$scrollingArea = this.$('.scroll-this-shiz');
-            this.$el.on("mousewheel", this.onMouseWheel);
             this.render();
+            this.setupMouseWheel();
         },
 
         createScrollBar: function()
@@ -30,7 +30,7 @@
 
         doScrollBarWidth: function()
         {
-            // node wide enough to scroll
+            // not wide enough to scroll
             if (this.$el.width() + 5 >= this.$scrollingArea.width()) {
                 this.$scrollbar.hide();
                 return false;
@@ -81,19 +81,32 @@
             // shouldn't be past boundary
             newOffset = Math.min(newOffset, this.getMaxScrollbarOffset());
 
+            if (this.$scrollbar.position().left == newOffset) {
+                // no movement
+                return true;
+            }
+
             this.$scrollbar.css('left', newOffset);
 
             // how far as % is the scroll bar?
             var percentScrolled = (newOffset / this.getMaxScrollbarOffset());
             this.moveToPercent(percentScrolled);
+            return false;
         },
 
-        onMouseWheel: function(event, delta, deltaX)
+        setupMouseWheel: function()
         {
-            var velocity  = Math.abs(deltaX * 10);
-            var newOffset = this.$scrollbar.position().left - (delta);
+            this.$el.on("mousewheel", _.bind(function(event, delta, deltaX) {
+                return this.onMouseWheel(deltaX);
+            }, this));
+        },
 
-            this.moveScrollBarTo(newOffset);
+        onMouseWheel: function(deltaX)
+        {
+            var velocity = deltaX * 10;
+            var currentScroll = this.$scrollbar.position().left;
+            var scroll = currentScroll + velocity;
+            return this.moveScrollBarTo(scroll);
         },
 
         // scroll the content to a given percentage
